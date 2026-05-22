@@ -209,11 +209,26 @@ Whisper's encoder and decoder are both Transformer stacks with large matrix mult
 | MPS | Apple Silicon (M1/M2/M3/M4) | ~3–5× |
 | CUDA | NVIDIA GPU | ~5–10× |
 
-On this machine (**MacBook Air M4**) you can confirm the active device at runtime:
+### How can I tell if my computer supports GPU acceleration?
+
+Run this snippet inside the project virtualenv:
 
 ```python
 import torch
+print("MPS (Apple Silicon):", torch.backends.mps.is_available())
+print("CUDA (NVIDIA):      ", torch.cuda.is_available())
+
 device = "mps" if torch.backends.mps.is_available() else \
          "cuda" if torch.cuda.is_available() else "cpu"
-print(device)  # → mps
+print("Whisper will use:   ", device)
 ```
+
+**Example — Apple MacBook with M-series chip (M1 / M2 / M3 / M4):**
+
+```
+MPS (Apple Silicon): True
+CUDA (NVIDIA):       False
+Whisper will use:    mps
+```
+
+On an M-series Mac the unified memory architecture means the CPU and GPU share the same physical RAM, so there is no data-copy overhead when moving tensors to the GPU — making MPS acceleration especially effective for models like Whisper.
