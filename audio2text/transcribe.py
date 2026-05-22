@@ -21,6 +21,7 @@ def transcribe(audio_file: str, model: ModelSize = "base") -> str:
         FileNotFoundError: If the audio file does not exist.
         ValueError: If the file format is not supported.
     """
+    import torch
     import whisper
 
     audio_path = Path(audio_file)
@@ -32,6 +33,13 @@ def transcribe(audio_file: str, model: ModelSize = "base") -> str:
             f"Supported: {', '.join(sorted(SUPPORTED_FORMATS))}"
         )
 
-    model_obj = whisper.load_model(model)
+    if torch.backends.mps.is_available():
+        device = "mps"
+    elif torch.cuda.is_available():
+        device = "cuda"
+    else:
+        device = "cpu"
+
+    model_obj = whisper.load_model(model, device=device)
     result = model_obj.transcribe(str(audio_path))
     return result["text"]
