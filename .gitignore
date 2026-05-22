@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+
+# Generated outputs
+transcripts/
+analysis_results.txt
+analysis_report.md
+
+# Audio files (personal recordings, potentially large)
+audio_clips/
+
+# Environment
+.env
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/

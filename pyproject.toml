@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "audio2text"
+version = "0.1.0"
+description = "Convert audio files to text using OpenAI Whisper"
+requires-python = ">=3.9"
+dependencies = [
+    "openai-whisper>=20240314",
+    "torch>=2.0.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+analyze = ["nltk>=3.8"]
+all = ["nltk>=3.8"]
+
+[project.scripts]
+audio2text = "audio2text.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["audio2text*"]
