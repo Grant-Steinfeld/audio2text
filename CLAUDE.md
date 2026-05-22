@@ -50,3 +50,20 @@ src/                 # thin shims for backward-compat; just call audio2text.cli:
 **Whisper model sizes** (`ModelSize` Literal type): `tiny | base | small | medium | large` — `base` is the default.
 
 `nltk` is an optional dependency (`pip install ".[analyze]"` or `".[all]"`). `analyze.py` gracefully degrades with an `ImportError` message if it's missing.
+
+## GPU Acceleration
+
+`transcribe.py` auto-selects the best available device — MPS (Apple Silicon) › CUDA (NVIDIA) › CPU. No configuration needed.
+
+Check what your machine will use:
+
+```python
+import torch
+print("MPS (Apple Silicon):", torch.backends.mps.is_available())
+print("CUDA (NVIDIA):      ", torch.cuda.is_available())
+device = "mps" if torch.backends.mps.is_available() else \
+         "cuda" if torch.cuda.is_available() else "cpu"
+print("Whisper will use:   ", device)
+```
+
+On Apple Silicon (M1–M4) this prints `mps` — the GPU shares unified memory with the CPU so there is no copy overhead, making MPS acceleration especially effective.
