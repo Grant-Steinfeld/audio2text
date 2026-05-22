@@ -26,3 +26,6 @@ audio_clips/
 
 # Editors
 .vscode/
+
+# Local dev logs
+WORKLOG.md
