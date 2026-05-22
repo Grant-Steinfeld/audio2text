@@ -90,3 +90,11 @@ The skill resolves the path relative to the current working directory, runs the 
 | `audio2text/src/analyze.py` | Updated (shim) |
 | `~/.claude/commands/transcribe.md` | Created (global skill) |
 | `audio2text/WORKLOG.md` | Created |
+| `audio2text/.gitignore` | Created |
+
+### Git
+
+Initialized repo at `/Users/grantsteinfeld/Documents/dev/audio2text`.
+Initial commit: `ed1e7de` — 11 files, 464 insertions.
+
+`.gitignore` excludes: `venv/`, `audio_clips/`, `transcripts/`, generated output files, build artifacts.
